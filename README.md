@@ -56,6 +56,8 @@ console:
 
 server:
   --profile PROFILE
-
 ```
+
+## Contribution
+Please switch to `dev` branch since most of the work is done there, and there is a github action that automatically push the current vesion to Test PyPI.
 
