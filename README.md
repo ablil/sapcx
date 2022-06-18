@@ -1,5 +1,6 @@
 # SAPCX (SAP CX CLI utility)
 [![Deploy to Test PyPI](https://github.com/ablil/sapcx/actions/workflows/test-pypi.yml/badge.svg?branch=dev)](https://github.com/ablil/sapcx/actions/workflows/test-pypi.yml)
+[![Deploy to PyPI](https://github.com/ablil/sapcx/actions/workflows/pypi.yml/badge.svg?branch=main)](https://github.com/ablil/sapcx/actions/workflows/pypi.yml)
 
 ## Introduction
 Why I built this ?? AS a SAP CX (Hybris) developer I found myself using HAC (Hybris adminstration console) a lot, and it's time consuming to open the browser, select each tab, then run simple groovy or some flexible search queries, or whatever is the task to be done.
