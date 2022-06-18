@@ -2,6 +2,7 @@ import sys
 
 import src.api as api
 import src.cli as cli
+import src.profile as profile
 from src.console import flexiblesearch
 from src.console import scripting
 from src.console import impex
@@ -9,12 +10,24 @@ from src.console import impex
 
 def main():
     if len(sys.argv) <= 1:
-        cli.cli.print_usage()
+        cli.cli.print_help()
         exit(1)
 
     args = cli.cli.parse_args()
 
-    api_client = api.SAPAPI(username=args.username, password=args.password, hacurl=args.server)
+    if args.subcli and args.subcli == 'configure':
+        user_profile = profile.get_profile_from_user()
+        user_profile.save()
+        exit(0)
+
+    user_profile = profile.Profile(args.profile)
+    user_profile.load()
+
+    api_client = api.SAPAPI(
+        username=user_profile.username,
+        password=user_profile.password,
+        hacurl=user_profile.get_hac_url()
+    )
     api_client.login()
 
     impex_console = impex.ImpexEngine(api_client)
@@ -27,6 +40,7 @@ def main():
         result = impex_console.impex_import(impex_script)
         if result.is_ok():
             print(f"Impex {file} executed successfully")
+            exit(0)
         else:
             print(result.get_errors())
             exit(2)
@@ -37,6 +51,7 @@ def main():
         result = scripting_console.execute(script)
         if result.is_ok():
             print(result.output)
+            exit(0)
         else:
             print(result.get_errors())
             exit(2)
@@ -46,6 +61,11 @@ def main():
         result = flexiblesearch_console.execute(query)
         if result.is_ok():
             print(result.get_result())
+            exit(0)
         else:
             print(result.get_errors())
             exit(2)
+
+
+if __name__ == '__main__':
+    main()

@@ -12,7 +12,7 @@ with open('README.md', 'r') as fd:
 setuptools.setup(
     name='sapcx',
     packages=setuptools.find_packages(),
-    version='0.0.1',
+    version='0.1.2',
     entry_points={'console_scripts': ['sap = src.main:main']},
     description=short_description,
     long_description=long_description,
